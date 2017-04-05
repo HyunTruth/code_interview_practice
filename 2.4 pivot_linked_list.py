@@ -14,7 +14,7 @@ class LinkedList:
 
     def add_to_tail(self, value):
         new_node = Node(value)
-        if self.head == None:
+        if self.head is None:
             self.head = self.tail = new_node
         else:
             temp = self.tail
@@ -23,7 +23,7 @@ class LinkedList:
             self.counter += 1
 
     def remove_head(self):
-        if self.head == None:
+        if self.head is None:
             raise NotImplementedError('No nodes in the list')
         else:
             self.head = self.head.next
@@ -31,13 +31,40 @@ class LinkedList:
     def __str__(self):
         value_list = []
         current = self.head
-        while current.next is not None:
+        if self.head is not None:
+            while current.next is not None:
+                value_list.append(current.value)
+                current = current.next
             value_list.append(current.value)
-            current = current.next
-        value_list.append(current.value)
         return str(value_list)
 
+    def __len__(self):
+        return self.counter
+
     def pivot_linked_list(self, item):
+        if len(self) <= 1:
+            return self
+        else:
+            pre = LinkedList()
+            post = LinkedList()
+            mid = None
+            current = self.head
+            while current is not None:
+                if current.value > item:
+                    post.add_to_tail(current.value)
+                if current.value < item:
+                    pre.add_to_tail(current.value)
+                if current.value == item:
+                    mid = Node(current.value)
+                current = current.next
+            print(pre, post)
+            pre.tail.next = mid
+            mid.next = post.head
+            return pre
+
+
+
+
 
 a = LinkedList()
 
@@ -47,6 +74,7 @@ a.add_to_tail(8)
 a.add_to_tail(1)
 a.add_to_tail(5)
 a.add_to_tail(9)
+# print(a)
 
-a.pivot_linked_list(5)
+print(a.pivot_linked_list(5))
 print(a)
