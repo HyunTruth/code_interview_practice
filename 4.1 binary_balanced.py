@@ -6,7 +6,8 @@ class Node:
     def __str__(self):
         return str(self.value)
 
-class BinaryTree:
+
+class BinarySearchTree:
     def __init__(self):
         self.root = None
 
@@ -65,7 +66,7 @@ class BinaryTree:
         return max(left_height, right_height) + 1
 
 
-tree = BinaryTree()
+tree = BinarySearchTree()
 tree.add(3)
 tree.add(4)
 tree.add(0)
